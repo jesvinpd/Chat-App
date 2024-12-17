@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from "react";
 import TextBox from "./TextBox";
 import { onValue, push, ref } from "firebase/database";
-import { dataBase } from "../firebase";
+import { dataBase, fireStore } from "../firebase";
+import { collection } from "firebase/firestore";
 
 function ChatRoom({User}){
    
     const [messageArray,setMessageArray]=useState([]);//for firebase
-    const msgref = ref(dataBase,'messages');
+    const msgref = collection(fireStore,'Messages');
 
      useEffect(() => {
     
@@ -20,7 +21,7 @@ function ChatRoom({User}){
     },[]);
 
     const addMsg=(msg)=>{
-        
+       
        push(msgref,{user: User , text: msg});
        
     }
