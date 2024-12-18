@@ -1,30 +1,45 @@
 import React,{useState,useEffect} from "react";
 import TextBox from "./TextBox";
-import { onValue, push, ref } from "firebase/database";
-import { dataBase, fireStore } from "../firebase";
-import { collection } from "firebase/firestore";
+import { onValue, orderByValue, push, query, ref } from "firebase/database";
+import {  firestore } from "../firebase";
+import { addDoc, collection, onSnapshot, orderBy } from "firebase/firestore";
 
 function ChatRoom({User}){
    
     const [messageArray,setMessageArray]=useState([]);//for firebase
-    const msgref = collection(fireStore,'Messages');
+    const msgref = collection(firestore, "Messages"); 
 
-     useEffect(() => {
-    
-        onValue(msgref,(snapshot)=>{
-              const data = snapshot.val();//convert raw to json
-              if(data){
-              const msgArray = Object.values(data);//converted to array of object attributes {msg1,msg2,..}
-              setMessageArray(msgArray);
-              }
-        })
-    },[]);
+     useEffect(()=>{
+        function unsubscribe(){
+            const q = query(msgref,orderBy('time','asc'));
 
-    const addMsg=(msg)=>{
-       
-       push(msgref,{user: User , text: msg});
-       
+            onSnapshot(q,(snapshot)=>{
+                const msgArray = snapshot.docs.map((doc)=>{
+                    return {id:doc.id,...doc.data()};
+                });
+                setMessageArray(msgArray);
+            });
+        }
+
+        return ()=>unsubscribe();
+     },[]);
+
+   const addMsg = async (message) => {
+  if (message.trim()) {
+    const msgData = { user: User, text: message ,time: new Date()};
+    try{
+        await addDoc(msgref,msgData);
+        console.log("data sended successfully");
     }
+    catch(error){
+        console.log("An error occured in sending: ",error);
+    }
+  }
+  else{
+    console.log("Message can't be empty!");
+  }
+};
+
 
     return(
         <>
@@ -32,14 +47,14 @@ function ChatRoom({User}){
        <h2 style={{backgroundColor:"lightblue"}}> Chatroom of "{User}" </h2>
         <div className="chat-box">
             {
-                (messageArray.length===0)?
-                <h2>ChatBox is Empty !</h2>:
+                (messageArray && messageArray.length===0)?
+                (<h2>ChatBox is Empty !</h2>):
                 (
                     messageArray.map(
-                        (e)=>{
+                        (msg)=>{                        
                             return(
-                                <p>
-                                    <strong>{e.user}</strong>: {e.text}
+                                <p key={msg.id}>
+                                    <strong>{msg.user}</strong>: {msg.text}
                                 </p>
                             );
                         }
