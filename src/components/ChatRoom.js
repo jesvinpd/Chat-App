@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TextBox from "./TextBox";
-import { onValue, orderByValue, push, query, ref } from "firebase/database";
+import {  query } from "firebase/database";
 import { firestore } from "../firebase";
 import { addDoc, collection, onSnapshot, orderBy } from "firebase/firestore";
 
@@ -41,7 +41,7 @@ function ChatRoom({ User }) {
     <>
       <h2 style={{ backgroundColor: "lightblue" }}> Chatroom of "{User}" </h2>
       <div className="chat-box">
-        {messageArray && messageArray.length === 0 ? (
+        {messageArray.length === 0 ? (
           <h2>ChatBox is Empty !</h2>
         ) : (
           messageArray.map((msg) => {
