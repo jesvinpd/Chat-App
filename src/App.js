@@ -20,6 +20,8 @@ function App() {
       : sessionStorage.removeItem("user");
   }, [user]);
 
+  const [roomID,setroomID]=useState("");
+
   return (
     <div className="App">
       <div style={{ fontFamily: "Arial, sans-serif", textAlign: "center" }}>
@@ -28,10 +30,11 @@ function App() {
             <Route
               path="/"
               element={
-                user ? <Navigate to="/chatroom" /> : <Login setUser={setUser} />
+                user ? (roomID ? <Navigate to="/chatroom" />:<h2>connecting to room...</h2>) :
+                 <Login setUser={setUser} roomID={roomID} setroomID={setroomID}/>
               }
             />
-            <Route path="/chatroom" element={<ChatRoom User={user} />} />
+            <Route path="/chatroom" element={<ChatRoom User={user} roomID={roomID}/>} />
           </Routes>
         </Router>
       </div>
