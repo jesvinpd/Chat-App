@@ -4,9 +4,9 @@ import {  query } from "firebase/database";
 import { firestore } from "../firebase";
 import { addDoc, collection, onSnapshot, orderBy } from "firebase/firestore";
 
-function ChatRoom({ User }) {
+function ChatRoom({ User ,roomID}) {
   const [messageArray, setMessageArray] = useState([]); //for firebase
-  const msgref = collection(firestore, "Messages");
+  const msgref = collection(firestore, `Rooms/${roomID}/Messages`);
 
   useEffect(() => {
     function unsubscribe() {
@@ -39,7 +39,9 @@ function ChatRoom({ User }) {
 
   return (
     <>
-      <h2 style={{ backgroundColor: "lightblue" }}> Chatroom of "{User}" </h2>
+      <h2 style={{ backgroundColor: "lightblue" }}> Room: "{roomID}" </h2>
+      <h3 style={{display:"flex",marginLeft:"50px",marginTop:"-45px"}}>User: {User}</h3>
+      <br />
       <div className="chat-box">
         {messageArray.length === 0 ? (
           <h2>ChatBox is Empty !</h2>
