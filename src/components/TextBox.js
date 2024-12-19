@@ -12,6 +12,12 @@ function TextBox({addMsg}){
             setMessage("");
     }
 
+    function pressedEnterKey(e){
+        if(e.key==='Enter'){ //camel case should be used
+            sendHandler(message);
+        }
+    }
+
     return(
         <div className="text-box">
             <input type="text"
@@ -20,6 +26,7 @@ function TextBox({addMsg}){
             onChange={
                 (e)=>setMessage(e.target.value)
             } 
+            onKeyDown={pressedEnterKey}
             style={{width:"180px", padding:"5px", marginRight:"5px"}}/>
 
             <button onClick={()=>sendHandler(message)}>Send</button>
