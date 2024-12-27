@@ -3,7 +3,7 @@ import {  arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
 import React, { useState } from "react";
 import { firestore } from "../firebase";
 
-function Login({ setUser,roomID,setroomID }) {
+function Login({ setUser,setroomID }) {
   const [userName, setUserName] = useState("");
   const [RoomID,setRoomID] = useState("");
 

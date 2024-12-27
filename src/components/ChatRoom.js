@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TextBox from "./TextBox";
 import {  query } from "firebase/database";
 import { firestore } from "../firebase";
-import { addDoc, collection, onSnapshot, orderBy } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, getDocs, onSnapshot, orderBy } from "firebase/firestore";
 
 function ChatRoom({ User ,roomID}) {
   const [messageArray, setMessageArray] = useState([]); //for firebase
@@ -21,7 +21,7 @@ function ChatRoom({ User ,roomID}) {
     }
 
     return () => unsubscribe();
-  }, []);
+  }, [msgref,()=>clearChat]);
 
   const addMsg = async (message) => {
     if (message.trim()) {
@@ -37,9 +37,23 @@ function ChatRoom({ User ,roomID}) {
     }
   };
 
+ async function clearChat() {
+        try{
+          const snapshot = await getDocs(msgref);
+          const deletePromises = snapshot.docs.map((e)=> {
+            return deleteDoc(e.ref);
+          });
+          await Promise.all(deletePromises);
+          console.log("chat cleared successfully!");
+        }
+        catch(error){
+           console.log("error occured on clearing chat: ",error);
+        }
+  };
+
   return (
     <>
-      <h2 style={{ backgroundColor: "lightblue" }}> Room: "{roomID}" </h2>
+      <h2 style={{ backgroundColor: "lightblue" }}> ChatRoom: "{roomID}" </h2>
       <h3 style={{display:"flex",marginLeft:"50px",marginTop:"-45px"}}>User: {User}</h3>
       <br />
       <div className="chat-box">
@@ -54,6 +68,11 @@ function ChatRoom({ User ,roomID}) {
             );
           })
         )}
+        <button 
+        style={{backgroundColor:"red",fontWeight:"bolder",marginBottom:"10px"}} 
+        onClick={clearChat}
+        >Clear chat</button>
+
       </div>
 
       <TextBox addMsg={addMsg} />
