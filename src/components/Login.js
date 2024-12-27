@@ -48,7 +48,9 @@ function Login({ setUser,setroomID }) {
       <br />
       <br />
       <button
-        style={{ alignSelf: "center" }}
+        style={{ alignSelf: "center",
+                 cursor:"pointer",
+         }}
         onClick={() => {
           if (userName.trim() && RoomID.trim()) {
             setUser(userName);

@@ -25,7 +25,10 @@ function ChatRoom({ User ,roomID}) {
 
   const addMsg = async (message) => {
     if (message.trim()) {
-      const msgData = { user: User, text: message, time: new Date() };
+      const msgData = { user: User,
+                        text: message,
+                        time: new Date().toISOString(),
+                      };
       try {
         await addDoc(msgref, msgData);
         console.log("data sended successfully");
@@ -66,9 +69,15 @@ function ChatRoom({ User ,roomID}) {
           <>
           {
           messageArray.map((msg) => {
+            const formatedtime = new Date(msg.time).toLocaleString();
             return (
               <p key={msg.id}>
-                <strong>{msg.user}</strong>: {msg.text}
+                <strong>{msg.user}</strong>: {msg.text} 
+                <br />
+                <small
+                style={{color:"grey"}}
+                >{formatedtime}
+                </small> 
               </p>
             );
           }) 
