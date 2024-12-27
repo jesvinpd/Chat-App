@@ -54,27 +54,37 @@ function ChatRoom({ User ,roomID}) {
   return (
     <>
       <h2 style={{ backgroundColor: "lightblue" }}> ChatRoom: "{roomID}" </h2>
-      <h3 style={{display:"flex",marginLeft:"50px",marginTop:"-45px"}}>User: {User}</h3>
+      <h3 style={{ display: "flex", marginLeft: "50px", marginTop: "-45px" }}>
+        User: {User}
+      </h3>
       <br />
       <div className="chat-box">
         {messageArray.length === 0 ? (
           <h2>ChatBox is Empty !</h2>
         ) : (
+          <>
+          {
           messageArray.map((msg) => {
             return (
               <p key={msg.id}>
                 <strong>{msg.user}</strong>: {msg.text}
               </p>
             );
-          })
+          }) 
+        }
+          <button 
+          style={{
+            backgroundColor:"red",
+            fontWeight:"bolder",
+            marginBottom:"10px",
+          }}
+          onClick={clearChat}> 
+          Clear Chat
+          </button>
+          </>
         )}
-        <button 
-        style={{backgroundColor:"red",fontWeight:"bolder",marginBottom:"10px"}} 
-        onClick={clearChat}
-        >Clear chat</button>
-
       </div>
-
+      
       <TextBox addMsg={addMsg} />
     </>
   );
