@@ -29,7 +29,10 @@ function TextBox({addMsg}){
           style={{ width: "180px", padding: "5px", marginRight: "5px" }}
         />
 
-        <button onClick={() => sendHandler(message)}>Send</button>
+        <button 
+        onClick={() => sendHandler(message)}
+        style={{cursor:"pointer",}}
+        >Send</button>
       </div>
     );
 }
