@@ -21,7 +21,7 @@ function ChatRoom({ User ,roomID}) {
     }
 
     return () => unsubscribe();
-  }, [msgref,()=>clearChat]);
+  }, [msgref]);
 
   const addMsg = async (message) => {
     if (message.trim()) {
@@ -44,6 +44,7 @@ function ChatRoom({ User ,roomID}) {
             return deleteDoc(e.ref);
           });
           await Promise.all(deletePromises);
+          setMessageArray([]);
           console.log("chat cleared successfully!");
         }
         catch(error){
@@ -77,14 +78,15 @@ function ChatRoom({ User ,roomID}) {
             backgroundColor:"red",
             fontWeight:"bolder",
             marginBottom:"10px",
+            cursor:"pointer"
           }}
           onClick={clearChat}> 
           Clear Chat
           </button>
-          </>
+          </>//should always return as one tag
         )}
       </div>
-      
+
       <TextBox addMsg={addMsg} />
     </>
   );
