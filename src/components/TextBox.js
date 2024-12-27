@@ -18,19 +18,19 @@ function TextBox({addMsg}){
         }
     }
 
-    return(
-        <div className="text-box">
-            <input type="text"
-            placeholder="Enter your message to send"
-            value={message}
-            onChange={
-                (e)=>setMessage(e.target.value)
-            } 
-            onKeyDown={pressedEnterKey}
-            style={{width:"180px", padding:"5px", marginRight:"5px"}}/>
+    return (
+      <div style={{ marginBottom: "10px" }} className="text-box">
+        <input
+          type="text"
+          placeholder="Enter your message to send"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={pressedEnterKey}
+          style={{ width: "180px", padding: "5px", marginRight: "5px" }}
+        />
 
-            <button onClick={()=>sendHandler(message)}>Send</button>
-        </div>
+        <button onClick={() => sendHandler(message)}>Send</button>
+      </div>
     );
 }
 

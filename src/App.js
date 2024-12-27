@@ -30,8 +30,8 @@ function App() {
             <Route
               path="/"
               element={
-                user ? (roomID ? <Navigate to="/chatroom" />:<h2>connecting to room...</h2>) :
-                 <Login setUser={setUser} roomID={roomID} setroomID={setroomID}/>
+                user ? (roomID ? <Navigate to="/chatroom" />:<h2>connecting to Chatroom...</h2>) :
+                 <Login setUser={setUser} setroomID={setroomID}/>
               }
             />
             <Route path="/chatroom" element={<ChatRoom User={user} roomID={roomID}/>} />
