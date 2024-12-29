@@ -7,6 +7,7 @@ import { addDoc, collection, deleteDoc, getDocs, onSnapshot, orderBy } from "fir
 function ChatRoom({ User ,roomID}) {
   const [messageArray, setMessageArray] = useState([]); //for firebase
   const msgref = collection(firestore, `Rooms/${roomID}/Messages`);
+  console.log(messageArray);
 
   useEffect(() => {
     function unsubscribe() {
