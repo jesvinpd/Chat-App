@@ -7,13 +7,14 @@ import { addDoc, collection, deleteDoc, getDocs, onSnapshot, orderBy } from "fir
 function ChatRoom({ User ,roomID}) {
   const [messageArray, setMessageArray] = useState([]); //for firebase
   const msgref = collection(firestore, `Rooms/${roomID}/Messages`);
-  console.log(messageArray);
+  
 
   useEffect(() => {
     function unsubscribe() {
       const q = query(msgref, orderBy("time", "asc"));
 
       onSnapshot(q, (snapshot) => {
+        console.log(messageArray);
         const msgArray = snapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
