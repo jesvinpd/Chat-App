@@ -31,6 +31,8 @@ function ChatRoom({ User ,roomID}) {
   
   }, [msgref]);
 
+  useEffect(() => console.log("useEffect"), [])
+
   const addMsg = async (message) => {
     if (message.trim()) {
       const msgData = { user: User,
