@@ -13,16 +13,22 @@ function ChatRoom({ User ,roomID}) {
     function unsubscribe() {
       const q = query(msgref, orderBy("time", "asc"));
 
-      onSnapshot(q, (snapshot) => {
-        const msgArray = snapshot.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        });
-        console.log("msgArray: ", msgArray)
-        setMessageArray(msgArray);
-      });
-    }
+      onSnapshot(
+        q,
+        (snapshot) => {
+          const msgArray = snapshot.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() };
+          });
+          setMessageArray(msgArray);
+        },
+        (error) => {
+          console.error("Error with onSnapshot: ", error);
+        }
+      );
 
-    return () => unsubscribe();
+    }
+    unsubscribe();
+  
   }, [msgref]);
 
   const addMsg = async (message) => {
