@@ -14,10 +14,10 @@ function ChatRoom({ User ,roomID}) {
       const q = query(msgref, orderBy("time", "asc"));
 
       onSnapshot(q, (snapshot) => {
-        console.log(messageArray);
         const msgArray = snapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
+        console.log("msgArray: ", msgArray)
         setMessageArray(msgArray);
       });
     }
