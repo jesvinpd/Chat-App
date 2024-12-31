@@ -12,7 +12,7 @@ function ChatRoom({ User ,roomID}) {
   useEffect(() => {
     function unsubscribe() {
       const q = query(msgref, orderBy("time", "asc"));
-
+      console.log("useEffect");
       onSnapshot(
         q,
         (snapshot) => {
@@ -29,9 +29,9 @@ function ChatRoom({ User ,roomID}) {
     }
     unsubscribe();
   
-  }, [msgref]);
+  }, []);
 
-  useEffect(() => console.log("useEffect"), [])
+  //useEffect(() => console.log("useEffect"), [])
 
   const addMsg = async (message) => {
     if (message.trim()) {
