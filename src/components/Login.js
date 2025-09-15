@@ -2,6 +2,7 @@
 import {  arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { firestore } from "../firebase";
+import Button from "react-bootstrap/Button";
 
 function Login({ setUser,setroomID }) {
   const [userName, setUserName] = useState("");
@@ -34,23 +35,20 @@ function Login({ setUser,setroomID }) {
         onChange={(e) => {
           setUserName(e.target.value);
         }}
-        style={{ width: "105px", padding: "5px" }}
+        style={{ marginTop: "10px", width: "145px", padding: "5px" }}
       />
-      <br />
       <br />
       <input
         type="text"
         placeholder="Type the room name here..."
         value={RoomID}
         onChange={(e) => setRoomID(e.target.value)}
-        style={{ width: "175px", padding: "5px" }}
+        style={{ marginTop: "10px",  width: "275px", padding: "5px" }}
       />
       <br />
-      <br />
-      <button
-        style={{ alignSelf: "center",
-                 cursor:"pointer",
-         }}
+      <Button
+        style={{ marginTop: "10px" }}
+        variant="primary"
         onClick={() => {
           if (userName.trim() && RoomID.trim()) {
             setUser(userName);
@@ -61,7 +59,7 @@ function Login({ setUser,setroomID }) {
         }}
       >
         Join Chat
-      </button>
+      </Button>
     </div>
   );
 }

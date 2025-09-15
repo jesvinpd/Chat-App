@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../Chatroom.css";
 import TextBox from "./TextBox";
 import {  query } from "firebase/database";
 import { firestore } from "../firebase";
@@ -67,10 +68,12 @@ function ChatRoom({ User ,roomID}) {
 
   return (
     <>
-      <h2 style={{ backgroundColor: "lightblue" }}> ChatRoom: "{roomID}" </h2>
-      <h3 style={{ display: "flex", marginLeft: "50px", marginTop: "-45px" }}>
-        User: {User}
-      </h3>
+      <div className="chat-header">
+        <h2 className="room-title"> ChatRoom: "{roomID}" </h2>
+        <h3 className="user-info">
+          User: {User}
+        </h3>
+      </div>
       <br />
       <div className="chat-box">
         {messageArray.length === 0 ? (
@@ -92,7 +95,7 @@ function ChatRoom({ User ,roomID}) {
             );
           }) 
         }
-          <button 
+          <button   
           style={{
             backgroundColor:"red",
             fontWeight:"bolder",

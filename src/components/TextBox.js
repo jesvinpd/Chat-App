@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import Button from "react-bootstrap/Button";
 
 function TextBox({addMsg}){
    
@@ -26,13 +27,14 @@ function TextBox({addMsg}){
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={pressedEnterKey}
-          style={{ width: "180px", padding: "5px", marginRight: "5px" }}
+          style={{ width: "230px", padding: "5px", marginRight: "5px" }}
         />
 
-        <button 
+        <Button 
+        variant="secondary"
         onClick={() => sendHandler(message)}
         style={{cursor:"pointer",}}
-        >Send</button>
+        >Send</Button>
       </div>
     );
 }
